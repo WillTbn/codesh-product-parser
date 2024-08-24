@@ -48,3 +48,8 @@ Analisando os pre-requisitos DESIGN PARTTERNS, SOLID e DDD, e a citação inicia
 - DTOs: Para tratar de forma unificada as entradas de dados, independentemente do Laravel, proporcionando mais flexibilidade ao código.
 
 - CONTINUA
+
+
+
+
+>  This is a challenge by [Coodesh](https://coodesh.com/)
