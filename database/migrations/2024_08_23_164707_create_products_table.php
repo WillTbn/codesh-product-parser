@@ -15,7 +15,6 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->integer('code')->nullable();
-            // $table->enum('notifications',NotificationsEnum::forSelectName())->default(NotificationsEnum::ACCEPTED);
             $table->enum('status', ProductStatus::forSelectName());
             $table->timestamp('imported_t');
             $table->string('url')->nullable();
