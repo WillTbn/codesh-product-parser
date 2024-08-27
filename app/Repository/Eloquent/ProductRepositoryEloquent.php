@@ -10,7 +10,7 @@ class ProductRepositoryEloquent implements ProductRepository
 {
     public function all():int|Collection
     {
-        $product = Product::query()->all();
+        $product = Product::all();
         return $product;
     }
     public function getByCode(int $code):?Product
