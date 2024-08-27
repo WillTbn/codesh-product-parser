@@ -45,8 +45,11 @@ class OpenFoodFactsImport extends Command
         try{
             $getindex = $this->getIndexOFFServices->execute();
 
-            $importOFFServices = new ImportOFFServices($getindex->lines);
-            $importOFFServices->setFilesName();
+            // foreach($getindex->lines as $line){
+
+            // }
+            $importOFFServices = new ImportOFFServices();
+            $importOFFServices->setFileName($getindex->lines[0]);
             $importOFFServices->execute();
             Log::info('ESTOU AQUI2!!!');
             // Log::info(json_encode($importOFFServices->getProcessedRecords()));

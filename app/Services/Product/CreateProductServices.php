@@ -3,10 +3,10 @@
 namespace App\Services\Product;
 
 use App\DTOs\ProductDTO;
-use App\Enums\ProductStatus;
-use App\Repository\ProductReposity;
 use App\Services\Service;
 use Exception;
+use Illuminate\Support\Facades\Log;
+use App\Repository\Eloquent\ProductReposityEloquent;
 
 class CreateProductServices extends Service
 {
@@ -15,15 +15,10 @@ class CreateProductServices extends Service
      *  @product
      */
     public ProductDTO $product;
-
-    private ProductReposity $productReposity;
     public function __construct(
-        ProductReposity $productReposity,
         ProductDTO $product
-
     )
     {
-        $this->productReposity = $productReposity;
         $this->product = $product;
     }
     /**
@@ -32,16 +27,12 @@ class CreateProductServices extends Service
      */
     public function execute(): CreateProductServices|Exception
     {
-        // EXECUTE
         try{
-            $this->productReposity->save($this->product);
+            $productReposity = new ProductReposityEloquent();
+            $productReposity->save($this->product);
             return $this;
         }catch(Exception $e){
-            return response()->json([
-                'message' => 'Erro no execute para cria ou atualiza produto!',
-                'exception' => $e,
-                'status'=> 500
-            ], 500);
+            Log::error('Erro : '.json_encode($e));
         }
     }
 }

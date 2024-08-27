@@ -1,5 +1,5 @@
 <?php
-namespace Reposity\Eloquent;
+namespace App\Repository\Eloquent;
 
 use App\DTOs\ProductDTO;
 use App\Models\Product;
@@ -20,32 +20,34 @@ class ProductReposityEloquent implements ProductReposity
     }
     public function save(ProductDTO $product):void
     {
-        Product::query()->updateOrCreate([
-            ['code' => $product->code],
+        Product::firstOrNew(
+            ['code' => $product->getCode()],
             [
-                'imported_t' => $product->imported_t,
-                'url' => $product->url,
-                'creator' => $product->creator,
-                'created_t' => $product->created_t,
-                'last_modified_t' => $product->last_modified_t,
-                'product_name' => $product->product_name,
-                'quantity' => $product->quantity,
-                'brands' => $product->brands,
-                'categories' => $product->categories,
-                'labels' => $product->labels,
-                'cities' => $product->cities,
-                'purchase_places' => $product->purchase_places,
-                'stores' => $product->stores,
-                'ingredients_text' => $product->ingredients_text,
-                'traces' => $product->traces,
-                'serving_size' => $product->serving_size,
-                'serving_quantity' => $product->serving_quantity,
-                'nutriscore_score' => $product->nutriscore_score,
-                'nutriscore_grade' => $product->nutriscore_grade,
-                'main_category' => $product->main_category,
-                'image_url'=>$product->image_url
+                'code' => $product->getCode(),
+                'imported_t' => $product->getImportedT(),
+                'status' => $product->getStatus(),
+                'url' => $product->getUrl(),
+                'creator' => $product->getCreator(),
+                'created_t' => $product->getCreatedT(),
+                'last_modified_t' => $product->getLastModifiedT(),
+                'product_name' => $product->getProductName(),
+                'quantity' => $product->getQuantity(),
+                'brands' => $product->getBrands(),
+                'categories' => $product->getCategories(),
+                'labels' => $product->getLabels(),
+                'cities' => $product->getCities(),
+                'purchase_places' => $product->getPurchasePlaces(),
+                'stores' => $product->getStores(),
+                'ingredients_text' => $product->getIngredientsText(),
+                'traces' => $product->getTraces(),
+                'serving_size' => $product->getServingSize(),
+                'serving_quantity' => $product->getServingQuantity(),
+                'nutriscore_score' => $product->getNutriscoreScore(),
+                'nutriscore_grade' => $product->getNutriscoreGrade(),
+                'main_category' => $product->getMainCategory(),
+                'image_url'=>$product->getImageUrl(),
             ]
-        ]);
+        )->saveOrFail();
     }
     public function delete(int $code):void
     {

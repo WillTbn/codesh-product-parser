@@ -24,8 +24,8 @@ class ProductDTO
     private ?string $ingredients_text;
     private ?string $traces;
     private ?string $serving_size;
-    private ?string $serving_quantity;
-    private ?string $nutriscore_score;
+    private ?float $serving_quantity;
+    private ?int $nutriscore_score;
     private ?string $nutriscore_grade;
     private ?string $main_category;
     private ?string $image_url;
@@ -49,13 +49,13 @@ class ProductDTO
         ?string $ingredients_text = null,
         ?string $traces = null,
         ?string $serving_size = null,
-        ?string $serving_quantity = null,
-        ?string $nutriscore_score = null,
+        ?float $serving_quantity = null,
+        ?int $nutriscore_score = null,
         ?string $nutriscore_grade = null,
         ?string $main_category = null,
         ?string $image_url = null
     ) {
-        $this->code = $code;
+        $this->code = $this->serializeCode($code);
         $this->status = $status;
         $this->imported_t = $imported_t;
         $this->url = $url;
@@ -88,7 +88,7 @@ class ProductDTO
     }
     public function getCode(): string|int
     {
-        return $this->serializeCode($this->code);
+        return $this->code;
     }
     public function getStatus(): ProductStatus
     {
@@ -158,11 +158,11 @@ class ProductDTO
     {
         return $this->serving_size;
     }
-    public function getServingQuantity(): ?string
+    public function getServingQuantity(): ?float
     {
         return $this->serving_quantity;
     }
-    public function getNutriscoreScore(): ?string
+    public function getNutriscoreScore(): ?int
     {
         return $this->nutriscore_score;
     }
@@ -251,11 +251,11 @@ class ProductDTO
     {
         $this->serving_size = $serving_size;
     }
-    public function setServingQuantity(?string $serving_quantity): void
+    public function setServingQuantity(?float $serving_quantity): void
     {
         $this->serving_quantity = $serving_quantity;
     }
-    public function setNutriscoreScore(?string $nutriscore_score): void
+    public function setNutriscoreScore(?int $nutriscore_score): void
     {
         $this->nutriscore_score = $nutriscore_score;
     }

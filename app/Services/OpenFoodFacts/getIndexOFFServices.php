@@ -23,6 +23,8 @@ class GetIndexOFFServices extends Service
     public function conectToApi()
     {
         try{
+            // product-1.json.gz
+            // product-2.json.gz
             return Http::openfoodfacts()->get('index.txt');
         }catch(Exception $e){
             Log::error('exception'.$e);

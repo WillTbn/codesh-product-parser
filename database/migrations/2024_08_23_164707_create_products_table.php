@@ -14,10 +14,10 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->integer('code')->nullable();
+            $table->bigInteger('code')->nullable();
             $table->enum('status', ProductStatus::forSelectName());
             $table->timestamp('imported_t');
-            $table->string('url')->nullable();
+            $table->text('url')->nullable();
             $table->string('creator')->nullable();
             $table->integer('created_t')->nullable();
             $table->integer('last_modified_t')->nullable();
@@ -36,7 +36,7 @@ return new class extends Migration
             $table->integer('nutriscore_score')->nullable();
             $table->string('nutriscore_grade')->nullable();
             $table->string('main_category')->nullable();
-            $table->string('image_url')->nullable();
+            $table->text('image_url')->nullable();
             $table->timestamps();
         });
     }

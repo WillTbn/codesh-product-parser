@@ -12,6 +12,7 @@ class Product extends Model
     protected $fillable = [
         'code',
         'imported_t',
+        'status',
         'url',
         'creator',
         'created_t',
