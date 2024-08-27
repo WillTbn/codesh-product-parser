@@ -3,10 +3,10 @@ namespace App\Repository\Eloquent;
 
 use App\DTOs\ProductDTO;
 use App\Models\Product;
-use App\Repository\ProductReposity;
+use App\Repository\ProductRepository;
 use Illuminate\Database\Eloquent\Collection;
 
-class ProductReposityEloquent implements ProductReposity
+class ProductRepositoryEloquent implements ProductRepository
 {
     public function all():int|Collection
     {

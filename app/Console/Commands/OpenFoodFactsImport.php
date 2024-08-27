@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Services\CronLogs\CreateCronLogsServices;
 use App\Services\OpenFoodFacts\GetIndexOFFServices;
 use App\Services\OpenFoodFacts\ImportOFFServices;
 use Exception;
@@ -13,8 +14,10 @@ class OpenFoodFactsImport extends Command
 {
 
     private GetIndexOFFServices $getIndexOFFServices;
+    private CreateCronLogsServices $createCronLogsServices;
     public function __construct(
-        GetIndexOFFServices $getIndexOFFServices
+        GetIndexOFFServices $getIndexOFFServices,
+        CreateCronLogsServices $createCronLogsServices
     )
     {
         parent::__construct();
@@ -22,6 +25,10 @@ class OpenFoodFactsImport extends Command
         $this->getIndexOFFServices = $getIndexOFFServices;
         $this->getIndexOFFServices->setFileContent();
         $this->getIndexOFFServices->setLines();
+
+        $this->createCronLogsServices = $createCronLogsServices;
+        $this->createCronLogsServices->setStartTime();
+        $this->createCronLogsServices->setInitialMemory();
     }
     /**
      * The name and signature of the console command.
@@ -43,15 +50,21 @@ class OpenFoodFactsImport extends Command
     public function handle()
     {
         try{
+
+
             $getindex = $this->getIndexOFFServices->execute();
 
-            // foreach($getindex->lines as $line){
+             foreach($getindex->lines as $line){
+                $importOFFServices = new ImportOFFServices();
+                $importOFFServices->setFileName($line);
+                $importOFFServices->execute();
+            }
 
-            // }
-            $importOFFServices = new ImportOFFServices();
-            $importOFFServices->setFileName($getindex->lines[0]);
-            $importOFFServices->execute();
-            Log::info('ESTOU AQUI2!!!');
+            $this->createCronLogsServices->setEndTime();
+            $this->createCronLogsServices->setUsageMemory();
+            $this->createCronLogsServices->execute();
+
+            Log::info('Finalizado todo processo no cron');
             // Log::info(json_encode($importOFFServices->getProcessedRecords()));
         }catch(Exception $e)
         {

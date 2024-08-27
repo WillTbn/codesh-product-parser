@@ -6,7 +6,7 @@ use App\DTOs\ProductDTO;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Collection;
 
-interface ProductReposity
+interface ProductRepository
 {
     public function all():int|Collection;
     public function getByCode(int $code):?Product;

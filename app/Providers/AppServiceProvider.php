@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
-use App\Repository\ProductReposity;
+use App\Repository\CronLogsRepository;
+use App\Repository\Eloquent\CronLogsRepositoryEloquent;
+use App\Repository\ProductRepository;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\ServiceProvider;
-use Reposity\Eloquent\ProductReposityEloquent;
+use APP\Repository\Eloquent\ProductRepositoryEloquent;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,7 +24,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->app->bind(ProductReposity::class, ProductReposityEloquent::class);
+        $this->app->bind(
+            ProductRepository::class, ProductRepositoryEloquent::class,
+        );
+        $this->app->bind(CronLogsRepository::class, CronLogsRepositoryEloquent::class);
         Http::macro('openfoodfacts', function(){
             return Http::acceptJson()->baseUrl(config('openfoodfacts.url'));
         });

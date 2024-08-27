@@ -6,7 +6,7 @@ use App\DTOs\ProductDTO;
 use App\Services\Service;
 use Exception;
 use Illuminate\Support\Facades\Log;
-use App\Repository\Eloquent\ProductReposityEloquent;
+use App\Repository\Eloquent\ProductRepositoryEloquent;
 
 class CreateProductServices extends Service
 {
@@ -28,7 +28,7 @@ class CreateProductServices extends Service
     public function execute(): CreateProductServices|Exception
     {
         try{
-            $productReposity = new ProductReposityEloquent();
+            $productReposity = new ProductRepositoryEloquent();
             $productReposity->save($this->product);
             return $this;
         }catch(Exception $e){

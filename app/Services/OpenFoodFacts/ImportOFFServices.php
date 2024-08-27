@@ -11,13 +11,6 @@ use Illuminate\Support\Arr;
 
 class ImportOFFServices extends Service
 {
-    // private CreateProductServices $createProductServices;
-    // public function __construct(
-    //     CreateProductServices $createProductServices
-    // )
-    // {
-    //     $this->createProductServices = $createProductServices;
-    // }
     /**
      * filaname .gz from get
      */
