@@ -6,7 +6,7 @@ use App\Models\Product;
 use App\Services\Service;
 use App\Repository\Eloquent\ProductRepositoryEloquent;
 
-class UpdateProductServices extends Service
+class TrashedProductServices extends Service
 {
     private ProductRepositoryEloquent $productRepository;
     public ?Product $code;
@@ -23,7 +23,7 @@ class UpdateProductServices extends Service
     }
     public function setCode(int|string $product_code)
     {
-        $this->code = $this->productRepository->getByCode($product_code);
+        $this->code = $this->productRepository->trashed($product_code);
     }
     public function getCode():?Product
     {

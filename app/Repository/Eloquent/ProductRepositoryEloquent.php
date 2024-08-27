@@ -2,6 +2,7 @@
 namespace App\Repository\Eloquent;
 
 use App\DTOs\ProductDTO;
+use App\Enums\ProductStatus;
 use App\Models\Product;
 use App\Repository\ProductRepository;
 use Illuminate\Database\Eloquent\Collection;
@@ -52,5 +53,12 @@ class ProductRepositoryEloquent implements ProductRepository
     public function delete(int $code):void
     {
         Product::where('code', $code)->deleteOrFail();
+    }
+    public function trashed(int $code):?Product
+    {
+        $product = Product::where('code', $code)->first();
+        $product->status = ProductStatus::Trash;
+        $product->updateOrFail();
+        return $product;
     }
 }

@@ -16,7 +16,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::controller(ProductController::class)->prefix('/products')->as('products.')->group(function(){
         Route::get('/', 'store')->name('store');
         Route::get('/{code}', 'index')->name('index');
-        Route::delete('/{code}', 'delete')->name('index');
+        Route::delete('/{code}', 'trashed')->name('trashed');
     });
     // Route::controller(DepositReceiptController::class)->prefix('/deposit')->as('deposit')->group(function(){
     //     Route::post('/', 'updateConfirm')->name('updateConfirm');

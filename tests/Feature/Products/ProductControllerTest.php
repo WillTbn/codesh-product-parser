@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Products;
 
+use App\Enums\ProductStatus;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -39,6 +40,21 @@ class ProductControllerTest extends TestCase
         $response->assertStatus(200)
         ->assertJsonStructure([
             'product',
+        ]);
+    }
+    public function test_delete_product_status_trashed()
+    {
+        $user = User::factory()->create();
+        Product::factory(4)->create();
+        $getProduct = Product::factory()->create(['code'=> fake()->isbn10()]);
+        $response = $this->actingAs($user)->delete(route('products.trashed', ['code'=>$getProduct->code]));
+        $response->assertStatus(200)
+        ->assertJsonStructure([
+            'product',
+        ]);
+        $this->assertDatabaseHas('products', [
+            'code' => $getProduct->code,
+            'status' => ProductStatus::Trash
         ]);
     }
 }

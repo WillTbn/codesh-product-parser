@@ -17,7 +17,7 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
-            "code"=> 20221126,
+            "code"=> fake()->isbn10(),
             "status"=> "published",
             "imported_t"=> "2020-02-07T16:00:00Z",
             "url"=> "https://world.openfoodfacts.org/product/20221126",
