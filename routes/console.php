@@ -11,7 +11,9 @@ Artisan::command('inspire', function () {
 
 
 // rodar em desenvolvimento para teste
-Schedule::command(OpenFoodFactsImport::class)->everyMinute();
+// Schedule::command(OpenFoodFactsImport::class)->everyMinute()->emailOutputOnFailure(env('ADMIN_EMAIL'));
 
 //rodar em production
-// Schedule::command(OpenFoodFactsImport::class)->dailyAt(env('SCJ_IMPORT_PRODUCTS'), '10:00');
+Schedule::command(OpenFoodFactsImport::class)
+    ->dailyAt(env('SCJ_IMPORT_PRODUCTS'), '10:00')
+    ->emailOutputOnFailure(env('ADMIN_EMAIL'), 'testefail@cron.com');

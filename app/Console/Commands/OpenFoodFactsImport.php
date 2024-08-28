@@ -54,8 +54,10 @@ class OpenFoodFactsImport extends Command
 
             $getindex = $this->getIndexOFFServices->execute();
 
-             foreach($getindex->lines as $line){
+            foreach($getindex->lines as $line){
                 $importOFFServices = new ImportOFFServices();
+                // PROVOQUE ERRO COMENTANDO ESSA LINHA DE BAIXO
+                // IRA RECEBE UM EMAIL
                 $importOFFServices->setFileName($line);
                 $importOFFServices->execute();
             }

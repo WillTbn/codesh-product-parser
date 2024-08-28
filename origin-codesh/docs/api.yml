@@ -3,4 +3,64 @@ info:
   title: DotNet Challenge 20200902
   description: CRUD Products
   version: '0.1'
+paths:
+  /auth:
+    post:
+      summary: Autentificação login
+      requestBody:
+        description: Dados de login (email e senha)
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+        responses:
+          '200':
+            description: Usuário logado com sucesso!
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: "Usuário logado com sucesso!"
+                    data:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          example: "Administrador Master"
+                        email:
+                          type: string
+                          example: "adm@test.com.br"
+                        token:
+                          type: string
+                          example: "1|QtyBd0zcpvE4D6EJuYoO29bR2JF8fjoeUgzjafjn49e2878f"
+          '400':
+            description: Email e/ou senha inválidos.
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: "Email e/ou senha inválidos."
+  /
+  get:
+    summary: Home da Aplicação
+    requestBody:
+      description: Pegar ultimo cron da aplicação e estado do servidor
+    security:
+      bearerAuth: []
+
 
