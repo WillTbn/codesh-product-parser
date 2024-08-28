@@ -15,7 +15,7 @@ class UpdateProductServices extends Service
 {
     private ProductRepositoryEloquent $productRepository;
     public ProductDTO $productDto;
-    public ?Product $code;
+    public ?Product $product;
     /**
      * Service constructor
      *
@@ -55,6 +55,14 @@ class UpdateProductServices extends Service
             'status' =>ProductStatus::from($product['status']),
         ]);
     }
+    public function setProduct(Product $product)
+    {
+        $this->product = $product;
+    }
+    public function getProduct():Product
+    {
+        return $this->product;
+    }
     public function getProductDto():ProductDTO
     {
         return $this->productDto;
@@ -67,7 +75,8 @@ class UpdateProductServices extends Service
     public function execute():UpdateProductServices|PatternMessageException
     {
         try{
-            $this->productRepository->update($this->getProductDto());
+            $reposity = $this->productRepository->update($this->getProductDto());
+            $this->setProduct($reposity);
             return $this;
         }catch(Exception $e){
             Log::error('Error :'.json_encode($e));

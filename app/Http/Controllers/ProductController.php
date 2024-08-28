@@ -98,7 +98,9 @@ class ProductController extends Controller
         ]));
         $this->updateProductService->execute();
         return new JsonResponse(
-            ['message' =>  'Lista de Produtos!',  'product' => $this->updateProductService->getProductDto()],
+            [
+                'message' =>  'Produto atualizado com sucesso!',
+                'product' => $this->updateProductService->getProduct()],
             200
         );
     }
@@ -111,7 +113,10 @@ class ProductController extends Controller
         $this->trashedProductServices->setCode($code);
         $this->trashedProductServices->execute();
         return new JsonResponse(
-            ['message' =>  'Produto atualizar para trash, com sucesso!',  'product' => $this->trashedProductServices->getCode()],
+            [
+                'message' =>  'Produto atualizar para trash, com sucesso!',
+                'product' => $this->trashedProductServices->getCode()
+            ],
             200
         );
     }
