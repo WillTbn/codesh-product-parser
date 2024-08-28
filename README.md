@@ -56,6 +56,10 @@ _REF: https://laravel.com/docs/11.x/sail#executing-composer-commands_
 Pronto agora é só se diverte.
     
 ## Documentação
+
+ :link documetação postman [postman doc](https://documenter.getpostman.com/view/7296995/2sAXjJ5snF)
+ :link postma convite[postman invite](https://app.getpostman.com/join-team?invite_code=cc25cdc4fd56b67fa5a2ce13ffa965e4&target_code=ab03433c6a2598ce2f18ee2c0cf91288)
+
  | todo processo investigativo
 
 **- inicio**
@@ -92,9 +96,6 @@ Durante esses testes, busquei tornar a aplicação o mais escalável possível e
 
 Comecei mais não terei tempo para finalizar infelizmente.
 
-**consideração final**
-
-Obrigado pela seleção para participar desse teste, oque mais gosto na programação e essa superação a cada novo projeto que temos que realizar e essa aqui deu para trabalha bem minhas abilidades e evoluir.
 
 ## Extra
 
