@@ -6,7 +6,7 @@ use Exception;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
-class getIndexOFFServices extends Service
+class GetIndexOFFServices extends Service
 {
     /**
      * content file
@@ -23,6 +23,8 @@ class getIndexOFFServices extends Service
     public function conectToApi()
     {
         try{
+            // product-1.json.gz
+            // product-2.json.gz
             return Http::openfoodfacts()->get('index.txt');
         }catch(Exception $e){
             Log::error('exception'.$e);

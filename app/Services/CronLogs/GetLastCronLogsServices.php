@@ -2,7 +2,7 @@
 namespace App\Services\CronLogs;
 
 use App\DTOs\CronLogsDTO;
-use App\Models\CronLogs;
+use App\Models\CronLog;
 use App\Repository\Eloquent\CronLogsRepositoryEloquent;
 use Exception;
 use App\Services\Service;
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Log;
 class GetLastCronLogsServices extends Service
 {
     private CronLogsRepositoryEloquent $cronLogsRepositoryEloquent;
-    protected ?CronLogs $cronLog;
+    protected ?CronLog $cronLog;
     /**
      * Service constructor
      *
@@ -27,7 +27,7 @@ class GetLastCronLogsServices extends Service
     {
         $this->cronLog = $this->cronLogsRepositoryEloquent->getCronLogLast();
     }
-    public function geCronLog():?CronLogs
+    public function geCronLog():?CronLog
     {
         return $this->cronLog;
     }

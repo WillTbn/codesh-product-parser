@@ -2,11 +2,9 @@
 
 namespace App\Services\Product;
 
-use App\DTOs\ProductDTO;
+
 use App\Models\Product;
 use App\Services\Service;
-use Exception;
-use Illuminate\Support\Facades\Log;
 use App\Repository\Eloquent\ProductRepositoryEloquent;
 
 class GetProductServices extends Service
@@ -24,9 +22,9 @@ class GetProductServices extends Service
     {
         $this->productRepository = $productRepository;
     }
-    public function setCode(int|string $code)
+    public function setCode(int|string $product_code)
     {
-        $this->code = $this->productRepository->getByCode($code);
+        $this->code = $this->productRepository->getByCode($product_code);
     }
     public function getCode():?Product
     {
