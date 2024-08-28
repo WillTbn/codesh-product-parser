@@ -11,6 +11,7 @@ interface ProductRepository
     public function all():int|Collection;
     public function getByCode(int $code):?Product;
     public function save(ProductDTO $product):void;
+    public function update(ProductDTO $product):?Product;
     public function delete(int $code):void;
     public function trashed(int $code):?Product;
 }

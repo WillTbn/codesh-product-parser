@@ -5,6 +5,7 @@ use App\DTOs\CronLogsDTO;
 use App\Models\CronLogs;
 use App\Repository\CronLogsRepository;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class CronLogsRepositoryEloquent implements CronLogsRepository
 {
@@ -20,5 +21,10 @@ class CronLogsRepositoryEloquent implements CronLogsRepository
             'execute_time'=> $cron_logs->getExecutionTime(),
             'usage_memory' =>  $cron_logs->getUsageMemory(),
         ]);
+    }
+    public function getCronLogLast():?CronLogs
+    {
+        $cron = CronLogs::latest()->first();
+        return $cron;
     }
 }

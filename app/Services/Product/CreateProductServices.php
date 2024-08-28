@@ -3,6 +3,7 @@
 namespace App\Services\Product;
 
 use App\DTOs\ProductDTO;
+use App\Exceptions\PatternMessageException;
 use App\Services\Service;
 use Exception;
 use Illuminate\Support\Facades\Log;
@@ -23,9 +24,9 @@ class CreateProductServices extends Service
     }
     /**
      * Execute from create or update product
-     * @return CreateProductServices|Exception
+     * @return CreateProductServices|PatternMessageException
      */
-    public function execute(): CreateProductServices|Exception
+    public function execute(): CreateProductServices|PatternMessageException
     {
         try{
             $productReposity = new ProductRepositoryEloquent();
@@ -33,6 +34,7 @@ class CreateProductServices extends Service
             return $this;
         }catch(Exception $e){
             Log::error('Erro : '.json_encode($e));
+            throw new PatternMessageException(message:'Erro ao atualiza registro do produto.');
         }
     }
 }

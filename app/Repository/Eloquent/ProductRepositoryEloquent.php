@@ -50,6 +50,34 @@ class ProductRepositoryEloquent implements ProductRepository
             ]
         )->saveOrFail();
     }
+    public function update(ProductDTO $productDto):?Product
+    {
+        $product = Product::where('code', $productDto->getCode())->first();
+        $product->imported_t = $productDto->getImportedT()??$product->imported_t;
+        $product->status = $productDto->getStatus()??$product->status;
+        $product->url = $productDto->getUrl()??$product->url;
+        $product->creator = $productDto->getCreator()??$product->creator;
+        $product->created_t = $productDto->getCreatedT()??$product->created_t;
+        $product->last_modified_t = $productDto->getLastModifiedT()??$product->last_modified_t;
+        $product->product_name = $productDto->getProductName()??$product->product_name;
+        $product->quantity = $productDto->getQuantity()??$product->quantity;
+        $product->brands = $productDto->getBrands()??$product->brands;
+        $product->categories = $productDto->getCategories()??$product->categories;
+        $product->labels = $productDto->getLabels()??$product->labels;
+        $product->cities = $productDto->getCities()??$product->cities;
+        $product->purchase_places = $productDto->getPurchasePlaces()??$product->purchase_places;
+        $product->stores = $productDto->getStores()??$product->stores;
+        $product->ingredients_text = $productDto->getIngredientsText()??$product->ingredients_text;
+        $product->traces = $productDto->getTraces()??$product->traces;
+        $product->serving_size = $productDto->getServingSize();
+        $product->serving_quantity = $productDto->getServingQuantity()??$product->serving_quantity;
+        $product->nutriscore_score = $productDto->getNutriscoreScore()??$product->nutriscore_score;
+        $product->nutriscore_grade = $productDto->getNutriscoreGrade()??$product->nutriscore_grade ;
+        $product->main_category = $productDto->getMainCategory()??$product->main_category;
+        $product->image_url =$productDto->getImageUrl()??$product->image_url;
+        $product->updateOrFail();
+        return $product;
+    }
     public function delete(int $code):void
     {
         Product::where('code', $code)->deleteOrFail();

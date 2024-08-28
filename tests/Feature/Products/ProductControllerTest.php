@@ -11,15 +11,6 @@ use Tests\TestCase;
 
 class ProductControllerTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
-    {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
-    }
     public function test_get_products_all()
     {
         $user = User::factory()->create();
@@ -55,6 +46,30 @@ class ProductControllerTest extends TestCase
         $this->assertDatabaseHas('products', [
             'code' => $getProduct->code,
             'status' => ProductStatus::Trash
+        ]);
+    }
+    public function test_put_product_updated()
+    {
+        $user = User::factory()->create();
+        Product::factory(4)->create();
+
+        $getProduct = Product::factory()->create(['code'=> fake()->isbn10()]);
+        $response = $this->actingAs($user)->put(route('products.updated', $getProduct->code), [
+            'status' => 'published',
+            'imported_t' =>$getProduct->imported_t,
+            'last_modified_t' => $getProduct->last_modified_t,
+            'product_name' => $getProduct->product_name,
+            'created_t' => $getProduct->created_t,
+            'serving_size'=> 'madalena 2 333 31.7 g',
+        ]);
+        $response->assertStatus(200)
+        ->assertJsonStructure([
+            'product',
+        ]);
+        $this->assertDatabaseHas('products', [
+            'code' => $getProduct->code,
+            'status' => ProductStatus::Published,
+            'serving_size'=> 'madalena 2 333 31.7 g',
         ]);
     }
 }

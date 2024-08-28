@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\DTOs\ProductDTO;
+use App\Http\Requests\ProductRequest;
 use App\Services\Product\GetAllProductServices;
 use App\Services\Product\GetProductServices;
 use App\Services\Product\TrashedProductServices;
+use App\Services\Product\UpdateProductServices;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -13,15 +16,18 @@ class ProductController extends Controller
     private GetAllProductServices $getAllProductServices;
     private GetProductServices $getProductServices;
     private TrashedProductServices $trashedProductServices;
+    private  UpdateProductServices $updateProductService;
     public function __construct(
         GetAllProductServices $getAllProductServices,
         GetProductServices $getProductServices,
-        TrashedProductServices $trashedProductServices
+        TrashedProductServices $trashedProductServices,
+        UpdateProductServices $updateProductService
     )
     {
         $this->getAllProductServices = $getAllProductServices;
         $this->getProductServices = $getProductServices;
         $this->trashedProductServices = $trashedProductServices;
+        $this->updateProductService = $updateProductService;
     }
     /**
      * @return JsonResponse
@@ -45,6 +51,45 @@ class ProductController extends Controller
         $this->getProductServices->execute();
         return new JsonResponse(
             ['message' =>  'Lista de Produtos!',  'product' => $this->getProductServices->getCode()],
+            200
+        );
+    }
+
+    /**
+     * @param ProductRequest $request
+     * @param int $code
+     * @return JsonResponse
+     */
+    public function updated(ProductRequest $request, int $code)
+    {
+        $request['code'] = $code;
+        $this->updateProductService->setProductDto( $request->only([
+            'code',
+            'url',
+            'creator',
+            'created_t',
+            'last_modified_t',
+            'product_name',
+            'quantity',
+            'brands',
+            'categories',
+            'labels',
+            'cities',
+            'purchase_places',
+            'stores',
+            'ingredients_text',
+            'traces',
+            'serving_size',
+            'serving_quantity',
+            'nutriscore_score',
+            'nutriscore_grade',
+            'main_category',
+            'image_url',
+            'status',
+        ]));
+        $this->updateProductService->execute();
+        return new JsonResponse(
+            ['message' =>  'Lista de Produtos!',  'product' => $this->updateProductService->getProductDto()],
             200
         );
     }
