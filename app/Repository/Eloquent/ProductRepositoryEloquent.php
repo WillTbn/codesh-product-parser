@@ -6,13 +6,13 @@ use App\Enums\ProductStatus;
 use App\Models\Product;
 use App\Repository\ProductRepository;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class ProductRepositoryEloquent implements ProductRepository
 {
-    public function all():int|Collection
+    public function all(int $perPage = 10):LengthAwarePaginator
     {
-        $product = Product::all();
-        return $product;
+        return Product::paginate($perPage);
     }
     public function getByCode(int $code):?Product
     {

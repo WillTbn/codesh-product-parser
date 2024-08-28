@@ -35,9 +35,18 @@ class ProductController extends Controller
     public function store()
     {
 
-        $productAll = $this->getAllProductServices->execute();
-        return new JsonResponse(
-            ['message' =>  'Lista de Produtos!',  'products' => $productAll],
+        $products = $this->getAllProductServices->execute();
+        return new JsonResponse([
+            'message' =>  'Lista de Produtos!',
+            'products' => [
+                'products' => $products->items(),
+                'current_page' => $products->currentPage(),
+                'total_pages' => $products->lastPage(),
+                'total_products' => $products->total(),
+                'next_page_url' => $products->nextPageUrl(),
+                'prev_page_url' => $products->previousPageUrl()
+                ]
+            ],
             200
         );
     }
